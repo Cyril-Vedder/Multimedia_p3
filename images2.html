@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- Cyril Vedder          Project 3 CIS 115        1/27/14 -->
+
+<html>
+<head>
+	<title>Assignment 3</title>
+	<meta charset="utf-8">
+	<style>
+		img {
+			height:200px;
+		}
+	</style>
+	<script>
+		function AnnotatedImage(url, caption) { 
+ 			this.url = url; 
+ 			this.caption = caption; 
+		}
+
+		var annotatedImageArray = new Array();
+
+		function addButton() {
+			var photoUrl = document.getElementById("imageBox");
+			var imageLink = photoUrl.value;
+
+			var captionText = document.getElementById("captionBox");
+			var imageCaption = captionText.value;
+	
+			var image = new AnnotatedImage(imageLink, imageCaption);
+			annotatedImageArray.push(image);
+	
+			imageBox.value  = "";
+			captionBox.value = "";
+		}
+
+		function suggestImage() {
+    		var index = Math.floor(Math.random()*annotatedImageArray.length);
+    		var suggestion = annotatedImageArray[index];
+    		return suggestion;
+    	}
+    	
+    	function randomButton() {
+			var showImage = suggestImage();
+			if (showImage.url == "") {
+				alert("Please add a photo.");
+			}
+			else {
+				var randomImage = document.createElement("img");
+				randomImage.src = showImage.url;
+				randomImage.title = showImage.caption
+				imageDisplay.appendChild(randomImage);
+				
+				var imageCaption = document.createElement("p"); 
+				imageCaption.innerHTML = showImage.caption; 
+				imageDisplay.appendChild(imageCaption);
+			}
+		}
+	</script>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<th>Image</th>
+			<th>Caption</th>
+		</tr>
+		<tr>
+			<td><input type="text" id="imageBox" size="30" placeholder="Enter Image URL"></td>
+			<td><input type="text" id="captionBox" size="30" placeholder="Enter Image Caption"></td>
+		</tr>
+	</table>
+	<input type="button" id="addButton" value="Add Image" onclick="addButton()">
+	<br>
+	<input type="button" id="randomButton" value="Show Random Image" onclick="randomButton()">
+	<br>
+	<div id="imageDisplay"></div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<!-- Cyril Vedder          Project 3 CIS 115        1/23/14 -->
+
+	<head>
+		<title>Project 3 example</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+		
+		</style>
+		
+		<script type="text/javascript">
+			function annotatedImage(url, caption) {
+          		this.url     = url;
+          		this.caption = caption;
+          	}
+     		
+     		var annotatedImageArray = new Array();
+     		
+     		function addButton() {
+    			
+    			var imageInput = document.getElementById("imageInput");
+        		var image = imageInput.value;
+        		var captionInput = document.getElementById("captionInput");
+        		var caption = captionInput.value;
+        		annotatedImageArray.push({url:image, caption:caption});
+        	
+        		imageInput.value = "";
+				captionInput.value="";
+			}
+     		
+     		function suggestImage() {
+            	var index = Math.floor(Math.random()*annotatedImageArray.length);
+            	var suggestion = annotatedImageArray[index];
+            	return suggestion;
+            	
+            	if (imageInput == "") {
+					alert("Please enter an image");
+				}
+				else {
+					var ul = document.getElementById("images");
+					var li = document.createElement("li");
+					
+					var img = document.createElement("img");
+					img = suggestImage();
+					
+					img.style.width="350px";
+					
+					li.appendChild(img.url + img.caption);
+					ul.appendChild(li);
+					
+					
+				}
+       		}
+       		
+       		
+       		//var images= suggestImage();
+       		//document.write(images.url + images.caption);
+			
+		</script>
+	</head>
+	<body>
+		
+		<table border="1">
+			<tr>
+				<th>Image</th>
+				<th>Caption</th>
+			</tr>
+			<tr>
+				<td><input type="text" size="30" id="imageInput" placeholder="Enter Image URL"></td>
+				<td><input type="text" size="30" id="captionInput" placeholder="Enter Image Caption"></td>
+			</tr>
+		</table>
+		
+		<input type="button" value="Add Image" onclick="addButton()"/>
+		<br>
+		<input type="button" value="Show Random Image" onclick="suggestImage()"/>
+		
+		<ul id="images"></ul>
+		
+	</body>
+</html>

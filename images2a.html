@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- CIS 115 Assignment 3                              Andrea Vedder -->
+<!-- =============================================================== -->
+
+<html>
+<head>
+	<title>Assignment 3</title>
+	<meta charset="utf-8">
+	<style>
+		img {
+			
+			height:200px;
+		}
+	</style>
+	<script>
+		function init() {
+			var addButton = document.getElementById("addButton");
+			addButton.onclick = handleAddButtonClicked;
+	
+			var randomButton = document.getElementById("randomButton");
+			randomButton.onclick = handleRandomButtonClicked;
+		}
+		window.onload = init;
+
+		function AnnotatedImage(url, caption) { 
+ 			this.url = url; 
+ 			this.caption = caption; 
+
+   			this.getText = function() { 
+    			return this.url + " - " + this.caption; 
+   		 	}
+		}
+
+		var annotatedImageArray = new Array();
+
+		function handleAddButtonClicked() {
+			var photoUrl = document.getElementById("urlTextbox");
+			var imageUrl = photoUrl.value;
+
+			var captionTextbox = document.getElementById("captionTextbox");
+			var imageCaption = captionTextbox.value;
+	
+			var image = new AnnotatedImage(imageUrl, imageCaption);
+			annotatedImageArray.push(image);
+	
+	
+			urlTextbox.value  = "";
+			captionTextbox.value = "";
+		}
+
+		function suggestImage() {
+    		var index = Math.floor(Math.random()*annotatedImageArray.length);
+    		var suggestion = annotatedImageArray[index];
+    		return suggestion;
+    	}
+    	
+    	function handleRandomButtonClicked() {
+			var displayImage = suggestImage();
+			if (displayImage.url == "") {
+				alert("Sorry! There is no photo to show.");
+			}
+			else {
+				var randomImage = document.createElement("img");
+				randomImage.src = displayImage.url;
+				randomImage.title = displayImage.caption
+				display.appendChild(randomImage);
+			//	captionDisplay.appendChild(
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<center><table border="1">
+		<tr>
+			<th>Image URL</th>
+			<th>Image Caption</th>
+		</tr>
+		<tr>
+			<td><input type="text" id="urlTextbox" size="80" placeholder="Paste image URL here..."></td>
+			<td><input type="text" id="captionTextbox" size="80" placeholder="Write image caption here..."></td>
+		</tr>
+	</table>
+	<input type="button" id="addButton" value="Add Image">
+	<input type="button" id="randomButton" value="Show Random Image"></center>
+	<br>
+	<div id="display"></div>
+	<div id="captionDisplay"></div>
+</body>
+
+</html>
